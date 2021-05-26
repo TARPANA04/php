@@ -1,1 +1,32 @@
-
+//php part
+<?php
+if(isset($_POST['form_submit'])) {   
+extract($_POST);
+$emailval = '/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/';
+$mob="/^[1-9][0-9]*$/"; 
+if($name=="" && $email=="" && $phone=="") :
+    $msg="Please fill all mandatory fields";
+elseif(!preg_match($emailval, $email)) :
+    $msg="Please enter a valid email";
+elseif(!preg_match($mob, $phone)) :
+    $msg="Please enter a valid number";
+else :
+    // Write your insert coding
+    $msg_sucess="Record inserted successfully";
+    $msg="";
+endif;
+}
+   ?>  
+   
+   //html part
+   <form name="form" method="post">
+<label>Name</label>
+<input type="text" name="name" /><br />
+<label>Email &nbsp;</label>
+<input type="text" name="email" /><br />
+<label>Phone</label>
+<input type="text" name="phone" /><br />
+<input type="submit" name="submit" value="submit" />
+<div class="<?=(@$msg_sucess=="") ? 'error' : 'green' ; ?>">
+ <?php echo @$msg; ?><?php echo @$msg_sucess; ?></div>
+</form>
